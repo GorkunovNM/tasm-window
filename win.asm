@@ -62,22 +62,18 @@ Start:          W_HEIGHT            dw 0h     ; not for user
 
                 mov bx, 82h
                 GetArg dx
-                ;GetArg W_HEIGHT_START
                 mov W_HEIGHT_START, dx
                 GetArg dx
-                ;GetArg W_WIDTH_START
                 mov W_WIDTH_START, dx
                 GetArg dx
-                ;GetArg WINDOW_START_X
                 mov WINDOW_START_X, dx
                 GetArg dx
-                ;GetArg WINDOW_START_Y
                 mov WINDOW_START_Y, dx
                 ;mov W_HEIGHT_START, 13       ; W_HEIGHT_START = 13
                 ;mov W_WIDTH_START, 40        ; W_WIDTH_START = 40
                 ;mov WINDOW_START_X, 22       ; WINDOW_START_X = 22
                 ;mov WINDOW_START_Y, 12       ; WINDOW_START_Y = 12
-                mov COLOR_THEME, 4eh         ; COLOR_THEME = 4eh
+                mov COLOR_THEME, 4eh          ; COLOR_THEME = 4eh
                 call MakeWindow               ; first window
 
                 mov MSG_START_X, 22           ; MSG_START_X = 22
