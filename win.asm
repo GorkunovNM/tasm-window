@@ -21,7 +21,7 @@ GoVideoSegScr   macro
                 endm
 
 ;=====================================================
-; Puts arg from PSP to ax
+; Puts arg from PSP to dest
 ; Entry:     bx         - arg pos
 ; Exit:      dest       - arg
 ;            bx         - pos after arg
@@ -30,12 +30,15 @@ GoVideoSegScr   macro
 
 GetArg          macro dest
 
-                mov ax, [bx]
-                sub ax, '00'
-                mov ch, al
-                mov cl, ah
-                mov dest, cx
-                add bx, 3
+                mov cx, [bx]
+                sub cx, '00'
+                mov ax, 10d
+                mul cl
+                xor cl, cl
+                add al, ch
+                xor ah, ah
+                mov dest, ax
+                add bx, 3d
 
                 endm
 
@@ -58,23 +61,23 @@ Start:          W_HEIGHT            dw 0h     ; not for user
                 MSG_START_Y         dw 0h     ; for user
 
                 mov bx, 82h
-                ;;GetArg cx
+                GetArg dx
                 ;GetArg W_HEIGHT_START
-                ;;mov W_HEIGHT_START, cx
-                ;;GetArg cx
+                mov W_HEIGHT_START, dx
+                GetArg dx
                 ;GetArg W_WIDTH_START
-                ;;mov W_WIDTH_START, cx
-                ;;GetArg cx
+                mov W_WIDTH_START, dx
+                GetArg dx
                 ;GetArg WINDOW_START_X
-                ;;mov WINDOW_START_X, cx
-                ;;GetArg cx
+                mov WINDOW_START_X, dx
+                GetArg dx
                 ;GetArg WINDOW_START_Y
-                ;;mov WINDOW_START_Y, cx
-                mov W_HEIGHT_START, 13       ; W_HEIGHT_START = 13
-                mov W_WIDTH_START, 40        ; W_WIDTH_START = 40
-                mov WINDOW_START_X, 22       ; WINDOW_START_X = 22
-                mov WINDOW_START_Y, 12       ; WINDOW_START_Y = 12
-                mov COLOR_THEME, 4eh          ; COLOR_THEME = 4eh
+                mov WINDOW_START_Y, dx
+                ;mov W_HEIGHT_START, 13       ; W_HEIGHT_START = 13
+                ;mov W_WIDTH_START, 40        ; W_WIDTH_START = 40
+                ;mov WINDOW_START_X, 22       ; WINDOW_START_X = 22
+                ;mov WINDOW_START_Y, 12       ; WINDOW_START_Y = 12
+                mov COLOR_THEME, 4eh         ; COLOR_THEME = 4eh
                 call MakeWindow               ; first window
 
                 mov MSG_START_X, 22           ; MSG_START_X = 22
